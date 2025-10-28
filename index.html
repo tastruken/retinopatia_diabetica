@@ -1,78 +1,82 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot de n8n Integrado</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-
-    <style>
-        /* Sobrescribir variables CSS para personalizar el chatbot */
-        :root {
-            /* Color Primario: afecta al botón flotante, botón de envío y algunos íconos. */
-            --chat--color--primary: #007bff; /* Azul de ejemplo */
-            --chat--color--primary-shade-50: #0056b3; 
-            
-            /* Fondo del encabezado del chat */
-            --chat--header--background: var(--chat--color--primary); 
-            
-            /* Color del texto del encabezado */
-            --chat--header--color: #ffffff; 
-
-            /* Color de fondo del mensaje del USUARIO */
-            --chat--message--user--background: #dcf8c6; /* Verde claro */
-            
-            /* Color de fondo del mensaje del BOT */
-            --chat--message--bot--background: #f0f0f0; /* Gris claro */
-            
-            /* Ancho y Alto de la ventana del chat */
-            --chat--window--width: 350px;
-            --chat--window--height: 500px;
+<script type="module" defer>
+  import Chatbot from "https://cdn.n8nchatui.com/v1/embed.js";
+  Chatbot.init({
+    "n8nChatUrl": "http://localhost:5678/webhook/a7d1fca2-035c-4fa2-8c24-14bcb3e140e5/chat",
+    "metadata": {}, // Include any custom data to send with each message to your n8n workflow
+    "theme": {
+      "button": {
+        "backgroundColor": "#ffc8b8",
+        "right": 20,
+        "bottom": 20,
+        "size": 50,
+        "iconColor": "#373434",
+        "customIconSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
+        "customIconSize": 60,
+        "customIconBorderRadius": 15,
+        "autoWindowOpen": {
+          "autoOpen": false,
+          "openDelay": 2
+        },
+        "borderRadius": "rounded"
+      },
+      "tooltip": {
+        "showTooltip": true,
+        "tooltipMessage": "Hola 👋 Estoy para resolver tus dudas",
+        "tooltipBackgroundColor": "#fff9f6",
+        "tooltipTextColor": "#1c1c1c",
+        "tooltipFontSize": 15
+      },
+      "chatWindow": {
+        "borderRadiusStyle": "rounded",
+        "avatarBorderRadius": 25,
+        "messageBorderRadius": 6,
+        "showTitle": true,
+        "title": "Charlie asistente CEOF",
+        "titleAvatarSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
+        "avatarSize": 40,
+        "welcomeMessage": "Hola! Estoy para ayudarte en lo que necesites. ",
+        "errorMessage": "Estamos con un error :(",
+        "backgroundColor": "#ffffff",
+        "height": 600,
+        "width": 400,
+        "fontSize": 16,
+        "starterPrompts": [
+          "Que es retinopatía?",
+          "Donde puedo contactar?"
+        ],
+        "starterPromptFontSize": 15,
+        "renderHTML": false,
+        "clearChatOnReload": false,
+        "showScrollbar": false,
+        "botMessage": {
+          "backgroundColor": "#f36539",
+          "textColor": "#fafafa",
+          "showAvatar": false,
+          "avatarSrc": "https://www.svgrepo.com/show/334455/bot.svg",
+          "showCopyToClipboardIcon": false
+        },
+        "userMessage": {
+          "backgroundColor": "#fff6f3",
+          "textColor": "#050505",
+          "showAvatar": true,
+          "avatarSrc": "https://www.svgrepo.com/show/532363/user-alt-1.svg"
+        },
+        "textInput": {
+          "placeholder": "Escribe tu pregunta",
+          "backgroundColor": "#ffffff",
+          "textColor": "#1e1e1f",
+          "sendButtonColor": "#f36539",
+          "maxChars": 50,
+          "maxCharsWarningMessage": "Limite de 50 palabras.",
+          "autoFocus": false,
+          "borderRadius": 6,
+          "sendButtonBorderRadius": 50
         }
-    </style>
-</head>
-<body>
-
-    <h1>Bienvenido a mi Web</h1>
-    <p>El chatbot aparecerá en la esquina inferior derecha.</p>
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-        // 🛑 ATENCIÓN: DEBES REEMPLAZAR ESTA URL DE LOCALHOST CON TU DIRECCIÓN PÚBLICA (ngrok o tu servidor)
-        const CHATBOT_URL_PUBLIC = 'http://localhost:5678/webhook/a7d1fca2-035c-4fa2-8c24-14bcb3e140e5/chat';
-
-        createChat({
-            webhookUrl: CHATBOT_URL_PUBLIC,
-            
-            // Opciones de Configuración
-            showWelcomeScreen: true, // Muestra la pantalla de inicio con título y subtítulo
-            loadPreviousSession: true, // Carga la conversación anterior del usuario
-            defaultLanguage: 'en', // Idioma base (usado para la configuración i18n)
-            
-            initialMessages: [
-                '¡Hola! Bienvenido a nuestro chat. 👋',
-                '¿En qué puedo ayudarte hoy?'
-            ],
-
-            // Traducciones para la interfaz
-            i18n: {
-                en: { // Usamos 'en' para definir los textos
-                    title: 'Asistente Web',
-                    subtitle: "Empieza a chatear. Estamos listos.",
-                    inputPlaceholder: 'Escribe tu mensaje..',
-                    getStarted: 'Nueva Conversación'
-                },
-            },
-            
-            // Si tu n8n está configurado para respuestas por streaming, cámbialo a true
-            enableStreaming: false, 
-        });
-    </script>
-
-</body>
-</html>
+      }
+    }
+    });
+  </script>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -573,6 +577,7 @@
     </script>
 </body>
 </html>
+
 
 
 
