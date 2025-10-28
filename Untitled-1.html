@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEOF - Prevención Retinopatía Diabética</title>
+    
+<script src="https://cdn.tailwindcss.com"></script>
+    
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333; /* Default dark text */
+            background-color: #f8f8fa; /* Light grey background for sections */
+            /* Evita el parpadeo de las animaciones iniciales */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50; /* Darker blue-grey for headings */
+        }
+        
+        /* Estilos base de las tarjetas para transiciones */
+        .card-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+        }
+        
+        /* Efecto Hover: se levanta y la sombra aumenta */
+        .card-shadow:hover {
+            transform: translateY(-5px); /* Se mueve 5px hacia arriba */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Estilos de las secciones para la animación de scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Colores y elementos del diseño original */
+        .text-primary-brand {
+            color: #1e40af; /* Similar to original blue */
+        }
+        .bg-primary-brand {
+            background-color: #1e40af;
+        }
+        .text-accent-orange {
+            color: #f97316; /* For the 'L' in the nav */
+        }
+        .bg-light-blue-card {
+            background-color: #e3f2fd; /* Very light blue for cards */
+        }
+        .hero-bg {
+            background-image: url('image_82d619.jpg'); /* Usando el archivo del Hero */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        }
+        /* Círculo decorativo sin icono */
+        .card-icon-circle {
+            background-color: #d1e5fa; /* Light blue circle */
+            color: #3b82f6; /* Icon color */
+            border-radius: 9999px; /* Full rounded */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px; /* w-12 */
+            height: 48px; /* h-12 */
+            position: relative;
+        }
+        /* Pequeño punto decorativo en el centro (solo si el círculo se usa sin icono) */
+        .card-icon-circle::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
+        .bg-red-warning {
+            background-color: #fee2e2; /* Light red */
+        }
+        .text-red-warning {
+            color: #dc2626; /* Darker red */
+        }
+        .border-red-warning {
+            border-color: #fca5a5; /* Medium red border */
+        }
+        /* Estilo para el borde inferior sutil (Celeste) */
+        .card-bottom-border-blue {
+            border-bottom: 4px solid #90caf9; /* Un azul claro sutil */
+        }
+
+        /* Decoración para Estilos de Vida */
+        .lifestyle-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(144,202,249,0.1) 100%);
+            z-index: 0;
+            pointer-events: none; /* Asegura que no bloquee interacciones */
+        }
+
+        /* Decoración para Tecnólogos Médicos */
+        .technician-bg-pattern {
+            background-image: radial-gradient(#d1e5fa 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span class="font-bold text-lg text-gray-800">CEOF</span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm font-medium">
+                <a href="#prevencion" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">Prevención</a>
+                <a href="#estilos" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">Estilos de Vida</a>
+                <a href="#ges" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">GES</a>
+                <a href="#controles" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">Controles</a>
+                <a href="#tecnologos" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">Tecnólogos Médicos</a>
+                <a href="#contacto" class="text-gray-600 hover:text-blue-700 transition duration-150 ease-in-out">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-bg h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center text-center relative">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <h1 class="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">
+                Protege tu Vista del Futuro, Prevenir la Retinopatía Diabética está en tus Manos.
+            </h1>
+            <p class="text-white text-lg sm:text-xl font-normal">
+                Cuida tu Visión: Prevención de la Retinopatía Diabética
+            </p>
+        </div>
+    </section>
+
+    <section id="prevencion" class="py-16 px-4 sm:px-6 lg:px-8 bg-white animate-on-scroll">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                Pilares de la Prevención
+            </h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Adoptar un estilo de vida saludable es clave para prevenir la retinopatía diabética. Aquí te presentamos los pilares fundamentales para proteger tu visión.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Control de Glucosa</h3>
+                    <p class="text-gray-600 text-sm">
+                        Mantener tus niveles de azúcar en sangre dentro del rango objetivo es crucial para la salud de tus ojos.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Presión Arterial Saludable</h3>
+                    <p class="text-gray-600 text-sm">
+                        Controlar tu presión arterial ayuda a proteger los vasos sanguíneos de la retina.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Dieta Balanceada</h3>
+                    <p class="text-gray-600 text-sm">
+                        Una alimentación rica en nutrientes contribuye a tu bienestar general y ocular.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Actividad Física Regular</h3>
+                    <p class="text-gray-600 text-sm">
+                        El ejercicio mejora la circulación sanguínea, incluyendo la de tus ojos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="estilos" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 animate-on-scroll relative overflow-hidden">
+        <div class="lifestyle-decoration"></div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                Estilos de Vida Saludables
+            </h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Pequeños cambios en tu día a día pueden marcar una gran diferencia en la prevención de la retinopatía diabética. Descubre cómo.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden card-shadow card-bottom-border-blue">
+                    <img src="image_82d8ff.jpg" alt="Alimentación Consciente" class="w-full h-48 object-cover">
+                    <div class="p-6 text-left">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Alimentación Consciente</h3>
+                        <p class="text-gray-600 text-sm">
+                            Incorpora más frutas, verduras y granos integrales en tu dieta. Limita el consumo de azúcares y alimentos procesados para proteger los vasos sanguíneos de la retina.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden card-shadow card-bottom-border-blue">
+                    <img src="image_82d8ff.jpg" alt="Ejercicio Regular" class="w-full h-48 object-cover">
+                    <div class="p-6 text-left">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Ejercicio Regular</h3>
+                        <p class="text-gray-600 text-sm">
+                            Encuentra una actividad que disfrutes y practícala de forma regular. El movimiento es clave para una buena circulación y salud ocular.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ges" class="py-16 px-4 sm:px-6 lg:px-8 bg-white animate-on-scroll">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                GES y Retinopatía Diabética
+            </h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-4xl mx-auto relative">
+                Las Garantías Explícitas en Salud (GES) son un derecho para las personas afiliadas a FONASA o ISAPRE, asegurando acceso, calidad, oportunidad y protección financiera para el tratamiento de la Retinopatía Diabética.
+                <span class="absolute left-1/2 transform -translate-x-1/2 bottom-[-20px] h-1 w-20 bg-blue-400 rounded-full"></span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue text-left">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">¿Qué es el GES?</h3>
+                    <p class="text-gray-600 text-sm">
+                        Es un conjunto de beneficios garantizados por ley para 85 problemas de salud, incluyendo la Retinopatía Diabética. Asegura que recibirás la atención necesaria sin arriesgar tu situación económica.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue text-left">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Beneficios para Pacientes</h3>
+                    <p class="text-gray-600 text-sm">
+                        Con GES, tienes garantizado el diagnóstico, tratamiento con láser y cirugía (vitrectomía) si es necesario, con plazos máximos de espera y un copago conocido y acotado.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue text-left">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">¿Cómo Acceder?</h3>
+                    <p class="text-gray-600 text-sm">
+                        Si tienes diabetes, tu médico debe emitir una orden de sospecha de Retinopatía Diabética. Con ella, acércate a tu CESFAM o al centro designado por tu ISAPRE para confirmar el diagnóstico e iniciar el proceso GES.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="controles" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 animate-on-scroll">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-4">
+                La Importancia de los Controles Regulares
+            </h2>
+            <p class="text-lg text-gray-600 text-center mb-12 max-w-4xl mx-auto">
+                Las revisiones periódicas son esenciales para detectar a tiempo cualquier anomalía, incluso antes de que aparezcan los síntomas.
+            </p>
+
+            <div class="max-w-3xl mx-auto space-y-12 bg-white p-8 rounded-lg card-shadow">
+                <div class="flex items-start space-x-4 p-6 rounded-lg bg-gray-50 card-shadow card-bottom-border-blue">
+                    <div class="flex-shrink-0 card-icon-circle mt-1">
+                        </div>
+                    <div class="text-left">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1 transition duration-300 ease-in-out">Examen de Fondo de Ojo Anual</h3>
+                        <p class="text-gray-600 text-sm">
+                            Indispensable para detectar cambios tempranos en la retina. Es la prueba más importante para la prevención y está garantizado por GES.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-6 rounded-lg bg-gray-50 card-shadow card-bottom-border-blue">
+                    <div class="flex-shrink-0 card-icon-circle mt-1">
+                        </div>
+                    <div class="text-left">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1 transition duration-300 ease-in-out">Control de Glucosa Trimestral</h3>
+                        <p class="text-gray-600 text-sm">
+                            Recomendado para un seguimiento preciso de tu diabetes y ajustar el tratamiento si es necesario.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-6 rounded-lg bg-gray-50 card-shadow card-bottom-border-blue">
+                    <div class="flex-shrink-0 card-icon-circle mt-1">
+                        </div>
+                    <div class="text-left">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1 transition duration-300 ease-in-out">Visita al Médico General Semestral</h3>
+                        <p class="text-gray-600 text-sm">
+                            Para un manejo integral de tu salud, control de colesterol y presión arterial.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center bg-red-warning p-8 rounded-lg border border-red-warning card-shadow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-warning mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <h3 class="text-2xl font-extrabold text-red-warning mb-3 transition duration-300 ease-in-out">Fumar Duplica el Riesgo. ¡Deja el Hábito Hoy!</h3>
+                <p class="text-red-800 mb-8 max-w-2xl mx-auto">
+                    El tabaquismo daña los vasos sanguíneos y acelera significativamente el desarrollo y la progresión de la retinopatía diabética. Dejar de fumar es uno de los pasos más importantes que puedes tomar para proteger tu visión.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-white p-5 rounded-lg card-shadow">
+                        <h4 class="font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Líneas de Ayuda Nacionales</h4>
+                        <p class="text-gray-600 text-sm">
+                            Contacta a profesionales que pueden ofrecerte apoyo y recursos gratuitos para dejar de fumar. Llama al <span class="font-bold text-blue-700">600 360 7777, Salud Responde.</span>
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg card-shadow">
+                        <h4 class="font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Grupos de Apoyo Locales</h4>
+                        <p class="text-gray-600 text-sm">
+                            Únite a un grupo puede aumentar tus posibilidades de éxito. Pregunta en tu centro de salud por programas para dejar de fumar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="tecnologos" class="py-16 px-4 sm:px-6 lg:px-8 bg-white animate-on-scroll relative overflow-hidden">
+        <div class="technician-bg-pattern"></div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                El Rol Crucial del Tecnólogo Médico en Oftalmología
+            </h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-4xl mx-auto">
+                En Chile, el Tecnólogo Médico con mención en Oftalmología es un pilar fundamental en la lucha contra la ceguera por diabetes.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Diagnóstico Temprano</h3>
+                    <p class="text-gray-600 text-sm">
+                        Realizan exámenes especializados como la retinografía y tomografía de coherencia óptica (OCT) para detectar los primeros signos de retinopatía diabética, mucho antes de que el paciente note cambios en su visión.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Seguimiento y Monitoreo</h3>
+                    <p class="text-gray-600 text-sm">
+                        Son responsables del seguimiento periódico de los pacientes, documentando la progresión de la enfermedad y proporcionando datos objetivos esenciales para que el oftalmólogo tome decisiones de tratamiento.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg card-shadow card-bottom-border-blue">
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2 transition duration-300 ease-in-out">Educación del Paciente</h3>
+                    <p class="text-gray-600 text-sm">
+                        Juegan un rol vital educando a los pacientes sobre su condición, la importancia de los controles y el manejo de la diabetes, empoderándolos para que sean parte activa del cuidado de su salud visual.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 animate-on-scroll">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-3">
+                Tu Visión es Nuestra Prioridad.
+            </h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-4xl mx-auto">
+                No esperes a tener síntomas. La prevención es la mejor medicina.
+            </p>
+            <p class="text-lg text-blue-700 font-semibold mb-12">
+                Contáctanos para tu revisión anual hoy mismo.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <div class="bg-white p-6 rounded-lg card-shadow card-bottom-border-blue text-left flex items-start space-x-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" clip-rule="evenodd" />
+                    </svg>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 text-xl mb-1 transition duration-300 ease-in-out">Nuestra Ubicación</h3>
+                        <p class="text-gray-600 text-sm">
+                            FACSAL 2do piso. Luis Valente Rossi con Edmundo Flores, Arica, Chile.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg card-shadow card-bottom-border-blue text-left flex items-start space-x-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 text-xl mb-1 transition duration-300 ease-in-out">Contacto</h3>
+                        <p class="text-gray-600 text-sm font-bold">
+                            +56 9 5011 6105
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-sm">
+            <p class="mb-2 sm:mb-0">
+                © 2025 CEOF. Todos los derechos reservados.
+            </p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-blue-400 transition duration-150 ease-in-out">Política de Privacidad</a>
+                <a href="#" class="hover:text-blue-400 transition duration-150 ease-in-out">Términos de Servicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Marcar el body como cargado para la transición inicial
+            document.body.classList.add('loaded');
+
+            // 2. Observer para animaciones de scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Aparece cuando el 10% de la sección es visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Dejar de observar una vez que ha aparecido
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Seleccionar todas las secciones que deben tener animación de scroll
+            const sections = document.querySelectorAll('.animate-on-scroll');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // 3. Animación de los títulos en la sección Hero (para un efecto sutil)
+            const heroH1 = document.querySelector('.hero-bg h1');
+            const heroP = document.querySelector('.hero-bg p');
+
+            if (heroH1) {
+                heroH1.style.opacity = 0;
+                heroH1.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    heroH1.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                    heroH1.style.opacity = 1;
+                    heroH1.style.transform = 'translateY(0)';
+                }, 100); 
+            }
+            
+            if (heroP) {
+                heroP.style.opacity = 0;
+                heroP.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    heroP.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                    heroP.style.opacity = 1;
+                    heroP.style.transform = 'translateY(0)';
+                }, 300); // 200ms después del H1
+            }
+        });
+    </script>
+</body>
+</html>
