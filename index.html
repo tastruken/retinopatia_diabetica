@@ -1,4 +1,78 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de n8n Integrado</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
+    <style>
+        /* Sobrescribir variables CSS para personalizar el chatbot */
+        :root {
+            /* Color Primario: afecta al botón flotante, botón de envío y algunos íconos. */
+            --chat--color--primary: #007bff; /* Azul de ejemplo */
+            --chat--color--primary-shade-50: #0056b3; 
+            
+            /* Fondo del encabezado del chat */
+            --chat--header--background: var(--chat--color--primary); 
+            
+            /* Color del texto del encabezado */
+            --chat--header--color: #ffffff; 
+
+            /* Color de fondo del mensaje del USUARIO */
+            --chat--message--user--background: #dcf8c6; /* Verde claro */
+            
+            /* Color de fondo del mensaje del BOT */
+            --chat--message--bot--background: #f0f0f0; /* Gris claro */
+            
+            /* Ancho y Alto de la ventana del chat */
+            --chat--window--width: 350px;
+            --chat--window--height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bienvenido a mi Web</h1>
+    <p>El chatbot aparecerá en la esquina inferior derecha.</p>
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        // 🛑 ATENCIÓN: DEBES REEMPLAZAR ESTA URL DE LOCALHOST CON TU DIRECCIÓN PÚBLICA (ngrok o tu servidor)
+        const CHATBOT_URL_PUBLIC = 'http://localhost:5678/webhook/a7d1fca2-035c-4fa2-8c24-14bcb3e140e5/chat';
+
+        createChat({
+            webhookUrl: CHATBOT_URL_PUBLIC,
+            
+            // Opciones de Configuración
+            showWelcomeScreen: true, // Muestra la pantalla de inicio con título y subtítulo
+            loadPreviousSession: true, // Carga la conversación anterior del usuario
+            defaultLanguage: 'en', // Idioma base (usado para la configuración i18n)
+            
+            initialMessages: [
+                '¡Hola! Bienvenido a nuestro chat. 👋',
+                '¿En qué puedo ayudarte hoy?'
+            ],
+
+            // Traducciones para la interfaz
+            i18n: {
+                en: { // Usamos 'en' para definir los textos
+                    title: 'Asistente Web',
+                    subtitle: "Empieza a chatear. Estamos listos.",
+                    inputPlaceholder: 'Escribe tu mensaje..',
+                    getStarted: 'Nueva Conversación'
+                },
+            },
+            
+            // Si tu n8n está configurado para respuestas por streaming, cámbialo a true
+            enableStreaming: false, 
+        });
+    </script>
+
+</body>
+</html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -499,6 +573,7 @@
     </script>
 </body>
 </html>
+
 
 
 
