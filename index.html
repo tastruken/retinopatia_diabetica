@@ -1,81 +1,103 @@
 <!DOCTYPE html>
-<script type="module" defer>
-  Chatbot.init({
-    "n8nChatUrl": "http://localhost:5678/webhook/a7d1fca2-035c-4fa2-8c24-14bcb3e140e5/chat",
-    "metadata": {}, // Include any custom data to send with each message to your n8n workflow
-    "theme": {
-      "button": {
-        "backgroundColor": "#ffc8b8",
-        "right": 20,
-        "bottom": 20,
-        "size": 50,
-        "iconColor": "#373434",
-        "customIconSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
-        "customIconSize": 76,
-        "customIconBorderRadius": 15,
-        "autoWindowOpen": {
-          "autoOpen": false,
-          "openDelay": 2
-        },
-        "borderRadius": "rounded"
-      },
-      "tooltip": {
-        "showTooltip": true,
-        "tooltipMessage": "Hola 👋 Estoy para ayudarte!",
-        "tooltipBackgroundColor": "#fff9f6",
-        "tooltipTextColor": "#1c1c1c",
-        "tooltipFontSize": 15
-      },
-      "chatWindow": {
-        "borderRadiusStyle": "rounded",
-        "avatarBorderRadius": 28,
-        "messageBorderRadius": 8,
-        "showTitle": true,
-        "title": "Charlie asistente CEOF",
-        "titleAvatarSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
-        "avatarSize": 36,
-        "welcomeMessage": "Hola!\nSoy Charlie y estoy aqui para resolver tus dudas.",
-        "errorMessage": "Please connect me to n8n first",
-        "backgroundColor": "#ffffff",
-        "height": 600,
-        "width": 400,
-        "fontSize": 16,
-        "starterPrompts": [
-          "Que es retinopatía?",
-          "Como los contacto?"
-        ],
-        "starterPromptFontSize": 15,
-        "renderHTML": false,
-        "clearChatOnReload": false,
-        "showScrollbar": false,
-        "botMessage": {
-          "backgroundColor": "#f36539",
-          "textColor": "#fafafa",
-          "showAvatar": true,
-          "avatarSrc": "https://www.svgrepo.com/show/334455/bot.svg",
-          "showCopyToClipboardIcon": false
-        },
-        "userMessage": {
-          "backgroundColor": "#fff6f3",
-          "textColor": "#050505",
-          "showAvatar": true,
-          "avatarSrc": "https://www.svgrepo.com/show/532363/user-alt-1.svg"
-        },
-        "textInput": {
-          "placeholder": "Type your query",
-          "backgroundColor": "#ffffff",
-          "textColor": "#1e1e1f",
-          "sendButtonColor": "#f36539",
-          "maxChars": 50,
-          "maxCharsWarningMessage": "You exceeded the characters limit. Please input less than 50 characters.",
-          "autoFocus": false,
-          "borderRadius": 6,
-          "sendButtonBorderRadius": 50
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Personalizado (Terceros)</title>
+    <script src="https://n8nchatui.com/loader.js" defer></script> 
+</head>
+<body>
+
+    <h1>Bienvenido a CEOF</h1>
+    <p>Habla con Charlie en la esquina inferior.</p>
+
+    <script type="module" defer>
+        // La URL de tu n8n
+        const MY_N8N_URL = "http://localhost:5678/webhook/a7d1fca2-035c-4fa2-8c24-14bcb3e140e5/chat";
+
+        // Asegúrate de que la función 'Chatbot.init' esté definida por la librería en el <head>
+        if (typeof Chatbot !== 'undefined' && Chatbot.init) {
+            Chatbot.init({
+                "n8nChatUrl": MY_N8N_URL,
+                "metadata": {},
+                "theme": {
+                    "button": {
+                        "backgroundColor": "#ffc8b8",
+                        "right": 20,
+                        "bottom": 20,
+                        "size": 50,
+                        "iconColor": "#373434",
+                        "customIconSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
+                        "customIconSize": 76,
+                        "customIconBorderRadius": 15,
+                        "autoWindowOpen": {
+                            "autoOpen": false,
+                            "openDelay": 2
+                        },
+                        "borderRadius": "rounded"
+                    },
+                    "tooltip": {
+                        "showTooltip": true,
+                        "tooltipMessage": "Hola 👋 Estoy para ayudarte!",
+                        "tooltipBackgroundColor": "#fff9f6",
+                        "tooltipTextColor": "#1c1c1c",
+                        "tooltipFontSize": 15
+                    },
+                    "chatWindow": {
+                        "borderRadiusStyle": "rounded",
+                        "avatarBorderRadius": 28,
+                        "messageBorderRadius": 8,
+                        "showTitle": true,
+                        "title": "Charlie asistente CEOF",
+                        "titleAvatarSrc": "https://www.svgrepo.com/show/339963/chat-bot.svg",
+                        "avatarSize": 36,
+                        "welcomeMessage": "Hola!\nSoy Charlie y estoy aqui para resolver tus dudas.",
+                        "errorMessage": "Please connect me to n8n first",
+                        "backgroundColor": "#ffffff",
+                        "height": 600,
+                        "width": 400,
+                        "fontSize": 16,
+                        "starterPrompts": [
+                            "Que es retinopatía?",
+                            "Como los contacto?"
+                        ],
+                        "starterPromptFontSize": 15,
+                        "renderHTML": false,
+                        "clearChatOnReload": false,
+                        "showScrollbar": false,
+                        "botMessage": {
+                            "backgroundColor": "#f36539", // NARANJA-ROJO de tu marca
+                            "textColor": "#fafafa",
+                            "showAvatar": true,
+                            "avatarSrc": "https://www.svgrepo.com/show/334455/bot.svg",
+                            "showCopyToClipboardIcon": false
+                        },
+                        "userMessage": {
+                            "backgroundColor": "#fff6f3", // COLOR CLARO del usuario
+                            "textColor": "#050505",
+                            "showAvatar": true,
+                            "avatarSrc": "https://www.svgrepo.com/show/532363/user-alt-1.svg"
+                        },
+                        "textInput": {
+                            "placeholder": "Type your query",
+                            "backgroundColor": "#ffffff",
+                            "textColor": "#1e1e1f",
+                            "sendButtonColor": "#f36539", // NARANJA-ROJO del botón
+                            "maxChars": 50,
+                            "maxCharsWarningMessage": "You exceeded the characters limit. Please input less than 50 characters.",
+                            "autoFocus": false,
+                            "borderRadius": 6,
+                            "sendButtonBorderRadius": 50
+                        }
+                    }
+                }
+            });
         }
-      }
-    }
-    });
-  </script>
+    </script>
+
+</body>
+</html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -576,6 +598,7 @@
     </script>
 </body>
 </html>
+
 
 
 
